@@ -33,10 +33,10 @@ public:
 		_if_for_construstot(workphone, _workphone);
 		_if_for_construstot(mobilephone, _mobilephone);
 		_if_for_construstot(info, _info);
-		cout << "конструктор контакт: " << this << endl;
+		//cout << "конструктор контакт: " << this << endl;
 	}
-	Contact(){
-		cout << "конструктор по умолчанию контакт: " << this << endl;
+	Contact() {
+		//cout << "конструктор по умолчанию контакт: " << this << endl;
 	};
 	Contact(const Contact& other) {
 		if (other.name) {
@@ -63,17 +63,11 @@ public:
 			info = new char[strlen(other.info) + 1];
 			strcpy_s(info, strlen(other.info) + 1, other.info);
 		}
-		 
-		//name = other.name;
-		//lastname = other.lastname;
-		//homephone = other.homephone;
-		//workphone = other.workphone;
-		//mobilephone = other.mobilephone;
-		//info = other.info;
-		cout << "конструктор копирования контакт: " << this << endl;
+
+		//cout << "конструктор копирования контакт: " << this << endl;
 	}
 	~Contact();
-		 
+
 	char* set_name();
 	void get_name(char* _name);
 

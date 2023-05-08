@@ -1,61 +1,41 @@
 #include "Phone_book.h"
 #include "Contact.h"
 #include "File_open.h"
+using namespace std;
+
+
+void Phone_book::copy_contact(Contact& new_contact, Contact& this_contact)
+{
+	new_contact.get_name(this_contact.set_name());
+	new_contact.get_lastname(this_contact.set_lastname());
+	new_contact.get_homephone(this_contact.set_homephone());
+	new_contact.get_workphone(this_contact.set_workphone());
+	new_contact.get_mobilephone(this_contact.set_mobilephone());
+	new_contact.get_info(this_contact.set_info());
+}
 
 
 void Phone_book::add_contact(Contact contact) {
 	Contact* temp = new Contact[size + 1];
 	for (int i = 0; i < size; i++) {
-		temp[i].get_name(arr_contacts[i].set_name());
-		temp[i].get_lastname(arr_contacts[i].set_lastname());
-		temp[i].get_homephone(arr_contacts[i].set_homephone());
-		temp[i].get_workphone(arr_contacts[i].set_workphone());
-		temp[i].get_mobilephone(arr_contacts[i].set_mobilephone());
-		temp[i].get_info(arr_contacts[i].set_info());
+		copy_contact(temp[i], arr_contacts[i]);
 	}
-	temp[size].get_name(contact.set_name());
-	temp[size].get_lastname(contact.set_lastname());
-	temp[size].get_homephone(contact.set_homephone());
-	temp[size].get_workphone(contact.set_workphone());
-	temp[size].get_mobilephone(contact.set_mobilephone());
-	temp[size].get_info(contact.set_info());
+	copy_contact(temp[size], contact);
 	delete[] arr_contacts;
 	arr_contacts = temp;
 	size++;
 }
 
-//void Phone_book::add_contact(Contact contact)
-//{
-//	Contact* temp = new Contact[size + 1];
-//	for (int i = 0; i < size; i++) {
-//		temp[i] = arr_contacts[i];
-//	}
-//	temp[size] = contact;
-//	delete[] arr_contacts;
-//	arr_contacts = temp;
-//	size++;
-//}
-
 void Phone_book::delete_contact(int num)
 {
 	Contact* temp = new Contact[size - 1];
-	for (int i = 0; i < num - 1; i++) {
-		temp[i].get_name(arr_contacts[i].set_name());
-		temp[i].get_lastname(arr_contacts[i].set_lastname());
-		temp[i].get_homephone(arr_contacts[i].set_homephone());
-		temp[i].get_workphone(arr_contacts[i].set_workphone());
-		temp[i].get_mobilephone(arr_contacts[i].set_mobilephone());
-		temp[i].get_info(arr_contacts[i].set_info());
-		//temp[i] = arr_contacts[i];
-	}
-	for (int i = num; i < size; i++) {
-		temp[i - 1].get_name(arr_contacts[i].set_name());
-		temp[i - 1].get_lastname(arr_contacts[i].set_lastname());
-		temp[i - 1].get_homephone(arr_contacts[i].set_homephone());
-		temp[i - 1].get_workphone(arr_contacts[i].set_workphone());
-		temp[i - 1].get_mobilephone(arr_contacts[i].set_mobilephone());
-		temp[i - 1].get_info(arr_contacts[i].set_info());
-		//temp[i - 1] = arr_contacts[i];
+	for (int i = 0, j = 0; i < size - 1; i++, j++) {
+		if (i != num - 1) {
+			copy_contact(temp[i], arr_contacts[j]);
+		}
+		else {
+			copy_contact(temp[i], arr_contacts[++j]);
+		}
 	}
 	delete[] arr_contacts;
 	arr_contacts = temp;
@@ -64,14 +44,20 @@ void Phone_book::delete_contact(int num)
 
 string Phone_book::search_contact(char* str)
 {
+	int counter_size = 0;
+	Phone_book* temp = new Phone_book();
 	for (int i = 0; i < size; i++) {
-		if (arr_contacts[i].set_name() == str || arr_contacts[i].set_lastname() == str) {
-			string s = "Совпадений нет...";
-			return s;
+		if (string(arr_contacts[i].set_name()) == str || string(arr_contacts[i].set_lastname()) == str) {
+			temp->add_contact(arr_contacts[i]);
+			counter_size++;
 		}
-		else {
-			return arr_contacts[i].to_string();
-		}
+	}
+	if (counter_size == 0) {
+		string s = "Совпадений нет...";
+		return s;
+	}
+	else {
+		return temp->to_string_contacts();
 	}
 }
 
@@ -80,7 +66,6 @@ string Phone_book::to_string_contacts()
 	string s = "";
 	for (int i = 0; i < size; i++) {
 		s.append(arr_contacts[i].to_string());
-		s.append("\n");
 	}
 	return s;
 }

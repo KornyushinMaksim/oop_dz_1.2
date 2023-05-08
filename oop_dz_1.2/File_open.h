@@ -7,7 +7,6 @@ using namespace std;
 class File_open
 {
 private:
-	//ofstream fout;
 	ifstream in;
 	string path;
 public:

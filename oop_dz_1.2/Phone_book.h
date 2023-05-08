@@ -11,17 +11,20 @@ private:
 	string path = ("Save.txt");
 public:
 	Phone_book() {
-		cout << "конструктор по умолчанию книга: " << this << endl;
+		arr_contacts = nullptr;
+		int size = 0;
+		//cout << "конструктор по умолчанию книга: " << this << endl;
 	}
-	Phone_book(Phone_book& other) {
+	Phone_book(const Phone_book& other) {
 		size = other.size;
 		for (int i = 0; i < size; i++) {
 			arr_contacts[i] = other.arr_contacts[i];
 		}
-		cout << "конструктор копир книга: " << this << endl;
+		//cout << "конструктор копир книга: " << this << endl;
 	}
 	~Phone_book();
 
+	void copy_contact(Contact& new_contact, Contact& this_contact);
 	void add_contact(Contact contact);
 	void delete_contact(int num);
 	string search_contact(char* str);

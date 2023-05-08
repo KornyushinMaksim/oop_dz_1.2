@@ -10,7 +10,6 @@ char* Contact :: set_name() {
 
 void Contact :: get_name(char* _name) {
 	if (_name && name) {
-		//delete[] name;
 		name = new char[strlen(_name) + 1];
 		_if_for_construstot(name, _name);
 	}
@@ -22,7 +21,6 @@ char* Contact :: set_lastname() {
 
 void Contact :: get_lastname(char* _lastname) {
 	if (_lastname && lastname) {
-		//delete[] lastname;
 		lastname = new char[strlen(_lastname) + 1];
 		_if_for_construstot(lastname, _lastname);
 	}
@@ -34,7 +32,6 @@ char* Contact :: set_homephone() {
 
 void Contact :: get_homephone(char* _homephone) {
 	if (_homephone && homephone) {
-		//delete[] homephone;
 		homephone = new char[strlen(_homephone) + 1];
 		_if_for_construstot(homephone, _homephone);
 	}
@@ -46,7 +43,6 @@ char* Contact :: set_workphone() {
 
 void Contact :: get_workphone(char* _workphone) {
 	if (_workphone && workphone) {
-		//delete[] workphone;
 		workphone = new char[strlen(_workphone) + 1];
 		_if_for_construstot(workphone, _workphone);
 	}
@@ -58,7 +54,6 @@ char* Contact :: set_mobilephone() {
 
 void Contact :: get_mobilephone(char* _mobilephone) {
 	if (_mobilephone && mobilephone) {
-		//delete[] mobilephone;
 		mobilephone = new char[strlen(_mobilephone) + 1];
 		_if_for_construstot(mobilephone, _mobilephone);
 	}
@@ -70,7 +65,6 @@ char* Contact :: set_info() {
 
 void Contact :: get_info(char* _info) {
 	if (_info && info) {
-		//delete[] info;
 		info = new char[strlen(_info) + 1];
 		_if_for_construstot(info, _info);
 	}
@@ -90,8 +84,6 @@ string Contact::to_string()
 	s.append(mobilephone);
 	s.append("\n");
 	s.append(info);
-	s.append("\n");
-	s.append("---------------");
 	s.append("\n");
 	return s;
 }
@@ -115,7 +107,7 @@ Contact::~Contact()
 	}
 	if (this->info) {
 		delete[] info;
-		cout << "диструктор контакт сработал" << this << endl;
+		//cout << "диструктор контакт сработал" << this << endl;
 	}
 }
 	

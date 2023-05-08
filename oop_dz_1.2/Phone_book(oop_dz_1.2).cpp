@@ -55,7 +55,7 @@ char* func_search_contact() {
 	char str[] = { "выход" };
 	while (flag) {
 		cout << "Введите имя/фамилию для поиска или \"выход\": ";
-		char search[30];
+		char* search = new char[30];
 		cin.get();
 		cin.getline(search, 30);
 		if (strstr(str, search)) {
@@ -67,20 +67,10 @@ char* func_search_contact() {
 	}
 }
 
-//Contact read_file() {
-//	File_open open;
-//	return open.open_file("Save.txt");
-//}
-
 void _interface(Phone_book& pers) {
-	//cont.add_contact(open.open_file("Save.txt"));
-	//Phone_book cont_copy(pers);
-	//Phone_book pers;
-	//Contact cont;
-	//cont_copy.add_contact(cont);
 	bool flag = true;
 	while (flag) {
-		//system("cls");
+		system("cls");
 		cout << "1. Добавление контакта\n2. Удалить\n3. Показать всех\n4. Поиск\n5. Сохранить\n6. Завершить\n";
 		int key;
 		cin >> key;
@@ -97,6 +87,7 @@ void _interface(Phone_book& pers) {
 			break;
 		case 4:
 			cout << pers.search_contact(func_search_contact()/*, pers*/) << endl;
+			system("pause");
 			break;
 		case 5:
 			pers.save_to_file("Save.txt");
@@ -111,11 +102,9 @@ void _interface(Phone_book& pers) {
 int main()
 {
 	system("chcp 1251 >nul");
-	//Contact cont;
-	////Contact(pers);
 	Phone_book pers;
 	File_open open("Save.txt");
-	open.open_file();
+	pers = open.open_file();
 	
 	_interface(pers);
 }
